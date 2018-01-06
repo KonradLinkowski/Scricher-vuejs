@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '../router'
+import decode from 'jwt-decode'
 
 const tokenKey = 'JWTtoken'
 const serverAdress = "http://localhost:3000/api/auth/"
@@ -15,7 +16,6 @@ export function test() {
 }
 
 export function requireAuth(to, from, next) {
-  console.log(!isLoggedIn())
   next();
   if (!isLoggedIn()) {
     next({
@@ -27,7 +27,14 @@ export function requireAuth(to, from, next) {
 }
 
 export function isLoggedIn() {
-  return loadToken() != null
+  let token = loadToken();
+  try {
+    token = decode(token)
+  } catch (err) {
+    console.log(err)
+    return false;
+  }
+  return true
 }
 
 function saveToken(token) {
@@ -39,7 +46,6 @@ function deleteToken() {
 }
 
 function loadToken() {
-  console.log("token " + localStorage.getItem(tokenKey))
   return localStorage.getItem(tokenKey)
 }
 
@@ -49,14 +55,13 @@ export function logout() {
 }
 
 export function login(userEmail, userPassword) {
-  router.push('/')
   axios.post(serverAdress + 'signin', {
     email: userEmail,
     password: userPassword
   })
   .then(response => {
-    console.log(response.data)
     saveToken(response.data.token)
+    router.push('/')
   })
   .catch(error => {
     console.log(error)
@@ -71,7 +76,7 @@ export function register(userEmail, userPassword, fname, lname) {
     last_name: lname
   })
   .then(response => {
-    console.log(response.data)
+    login(userEmail, userPassword)
   })
   .catch(error => {
     console.log(error)
