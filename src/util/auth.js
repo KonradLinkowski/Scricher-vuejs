@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Router from 'vue-router'
+import router from '../router'
 
 const tokenKey = 'JWTtoken'
 const serverAdress = "http://localhost:3000/api/auth/"
@@ -14,6 +14,22 @@ export function test() {
   })
 }
 
+export function requireAuth(to, from, next) {
+  console.log(!isLoggedIn())
+  next();
+  if (!isLoggedIn()) {
+    next({
+      path: '/login',
+    });
+  } else {
+    next();
+  }
+}
+
+export function isLoggedIn() {
+  return loadToken() != null
+}
+
 function saveToken(token) {
   localStorage.setItem(tokenKey, token)
 }
@@ -23,14 +39,17 @@ function deleteToken() {
 }
 
 function loadToken() {
+  console.log("token " + localStorage.getItem(tokenKey))
   return localStorage.getItem(tokenKey)
 }
 
 export function logout() {
+  router.push('/login')
   deleteToken();
 }
 
 export function login(userEmail, userPassword) {
+  router.push('/')
   axios.post(serverAdress + 'signin', {
     email: userEmail,
     password: userPassword
