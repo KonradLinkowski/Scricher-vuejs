@@ -1,18 +1,10 @@
 <template>
-    <div>
-        Main Page
-    </div>
+  <div>
+      Login
+  </div>
 </template>
-
-<<script>
+<script>
 export default {
-    name: 'MainPage',
-    data() {
-        return {
-
-        }
-    }
+  name: 'LoginPage'
 }
 </script>
-<style scoped>
-</style>
