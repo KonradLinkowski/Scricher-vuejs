@@ -29,7 +29,8 @@ export function getPosts(params) {
       url: serverAdress + 'posts',
       headers: {
         'Authorization': 'JWT ' + getToken()
-      }
+      },
+      params: params
     })
     .then(({ data }) => {
       console.log(data)

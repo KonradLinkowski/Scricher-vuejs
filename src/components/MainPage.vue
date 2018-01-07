@@ -1,35 +1,12 @@
 <template>
-  <div class="container vert-cont">
-    <PostForm />
-    <div class="hacker-news-header">
-      <a target="_blank" href="http://www.ycombinator.com/">
-        <img src="https://news.ycombinator.com/y18.gif">
-      </a>
-      <span>Hacker News</span>
-    </div>
-    <div class="hacker-news-item" v-for="(item, key) in list">
-      <Post :message="item" />
-      <!--
-      <span class="num" v-text="key + 1"></span>
-      <p>
-        <a target="_blank" :href="item.url" v-text="item.title"></a>
-      </p>
-      <p>
-        <small>
-          <span v-text="item.points"></span>
-          points by
-          <a target="_blank" :href="'https://news.ycombinator.com/user?id=' + item.author"
-            v-text="item.author"></a>
-          |
-          <a target="_blank" :href="'https://news.ycombinator.com/item?id=' + item.objectID"
-            v-text="item.num_comments + ' comments'"></a>
-        </small>
-      </p>
-      -->
+  <div class="container vert-cont" id="maindiv">
+    <PostForm @post-added="onPostAdded" />
+    <div class="container vert-cont" v-for="item in list" :key='item._id'>
+      <Post :object="item" />
     </div>
     <infinite-loading @infinite="infiniteHandler">
       <span slot="no-more">
-        There is no more Hacker News :(
+        There is no more posts :(
       </span>
     </infinite-loading>
   </div>
@@ -40,6 +17,7 @@ import Post from './Post'
 import InfiniteLoading from 'vue-infinite-loading';
 import axios from 'axios';
 import { getPosts } from '../util/api'
+import { getUser } from '../util/auth'
 
 const api = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
 
@@ -51,36 +29,29 @@ export default {
   },
   methods: {
     infiniteHandler($state) {
-      getPosts()
+      getPosts({
+        limit: 10,
+        newest: this.list.length ? this.list[this.list.length - 1].date : undefined
+      })
       .then(data => {
           if (data.length) {
             this.list = this.list.concat(data)
             $state.loaded();
-            if (this.list.length / 20 === 10) {
+            if (this.list.length / 20 === 2) {
               $state.complete();
             }
           } else {
             $state.complete();
           }
       })
-      /*
-      axios.get(api, {
-        params: {
-          page: this.list.length / 20 + 1,
-        },
-      }).then(({ data }) => {
-        if (data.hits.length) {
-          this.list = this.list.concat(data.hits);
-          $state.loaded();
-          if (this.list.length / 20 === 10) {
-            $state.complete();
-          }
-        } else {
-          $state.complete();
-        }
-      });
-      */
     },
+    onPostAdded(value) {
+      console.log(value)
+      this.list.unshift({
+        message: value,
+        user: getUser()
+      })
+    }
   },
   components: {
     InfiniteLoading,

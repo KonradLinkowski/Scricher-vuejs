@@ -26,6 +26,16 @@ export function requireAuth(to, from, next) {
   }
 }
 
+export function getUser() {
+  let user = decode(loadToken())
+  return {
+    email: user.email,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    _id: user._id
+  }
+}
+
 export function isLoggedIn() {
   let token = loadToken();
   try {
