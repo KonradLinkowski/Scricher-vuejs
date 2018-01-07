@@ -49,6 +49,10 @@ function loadToken() {
   return localStorage.getItem(tokenKey)
 }
 
+export function getToken() {
+  return loadToken()
+}
+
 export function logout() {
   router.push('/login')
   deleteToken();
