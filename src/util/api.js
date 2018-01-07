@@ -3,7 +3,7 @@ import { getToken } from './auth'
 
 const serverAdress = "http://localhost:3000/api/"
 
-export function post(message) {
+export function sendPost(message) {
   axios({
     method: 'post',
     url: serverAdress + 'posts',
@@ -19,5 +19,24 @@ export function post(message) {
   })
   .catch(error => {
     console.log(error)
+  })
+}
+
+export function getPosts(params) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url: serverAdress + 'posts',
+      headers: {
+        'Authorization': 'JWT ' + getToken()
+      }
+    })
+    .then(({ data }) => {
+      console.log(data)
+      resolve(data)
+    })
+    .catch((error) => {
+      reject(error)
+    })
   })
 }

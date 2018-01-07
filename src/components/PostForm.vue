@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import { post } from '../util/api'
+import { sendPost } from '../util/api'
 
 export default {
   data() {
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     post() {
-      post(this.message)
+      sendPost(this.message)
     }
   }
 }
