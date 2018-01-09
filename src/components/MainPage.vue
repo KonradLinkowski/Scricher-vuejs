@@ -15,11 +15,8 @@
 import PostForm from './PostForm'
 import Post from './Post'
 import InfiniteLoading from 'vue-infinite-loading';
-import axios from 'axios';
 import { getPosts } from '../util/api'
 import { getUser } from '../util/auth'
-
-const api = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
 
 export default {
   data() {
@@ -37,20 +34,19 @@ export default {
           if (data.length) {
             this.list = this.list.concat(data)
             $state.loaded();
-            if (this.list.length / 20 === 2) {
+            /*if (this.list.length / 20 === 2) {
               $state.complete();
-            }
+            }*/
           } else {
             $state.complete();
           }
       })
     },
     onPostAdded(value) {
-      console.log(value)
-      this.list.unshift({
-        message: value,
-        user: getUser()
-      })
+      console.log(value.user)
+      //this.list.push(value)
+      this.list.unshift(value)
+      console.log('lot', this.list)
     }
   },
   components: {

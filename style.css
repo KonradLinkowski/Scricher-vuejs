@@ -47,10 +47,10 @@ svg {
   height: 100%;
 }
 
-input, select {
+input, select, textarea {
+  resize: none;
   background-color:#070016;
   width: 100%;
-  min-height: 6rem;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -58,6 +58,10 @@ input, select {
   border-radius: 4px;
   box-sizing: border-box;
   color: rgb(206, 116, 58);
+}
+
+textarea.wide {
+  min-height: 6rem;
 }
 
 input[type=submit], button {
