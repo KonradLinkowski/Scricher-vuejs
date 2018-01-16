@@ -6,7 +6,7 @@
       <div class="container col8">
         <!--img src="https://vectr.com/konowy/i3Q2IXrnWA.png?width=1280&height=1280&select=i3Q2IXrnWApage0"-->
       </div>
-      <div class="container vert-cont col4">
+      <div class="container vert-cont col4 no-shrink">
         <Login />
         <Register />
       </div>
