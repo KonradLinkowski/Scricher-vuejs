@@ -1,19 +1,19 @@
 <template>
   <div class="card">
-    <p v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</p>
-    <p v-else>{{ object.user.email }}</p>
+    <a href="#" @click.prevent v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</a>
+    <a href="#" @click.prevent v-else>{{ object.user.email }}</a>
     <p>{{ object.message }}</p>
     <p>{{ getTimeAndDate }}</p>
     <button @click.once="loadComments()" @click="showComments()">Show Comments</button>
     <div v-show="commentsShown">
-      <span @click="loadComments()">Load More</span>
+      <a href="#" v-show="!noComments" @click.prevent="loadComments()">Load More</a>
       <span v-show="noComments">No more comments</span>
       <div class="container vert-cont" v-for="item in list" :key='item._id'>
-        <div class="card">
-          <p v-if="hasName(item)">{{ item.user.first_name }} {{ item.user.last_name }}</p>
-          <p v-else>{{ item.user.email }}</p>
+        <div class="comment">
+          <a href="#" @click.prevent v-if="hasName(item)">{{ item.user.first_name }} {{ item.user.last_name }}</a>
+          <a href="#" @click.prevent v-else>{{ item.user.email }}</a>
           <p>{{ item.message }}</p>
-          <p>{{ item.date }}</p>
+          <span>{{ getCommentTimeAndDate(item) }}</span>
         </div>
       </div>
       <textarea v-model="message" placeholder="Comment me!" />
@@ -39,7 +39,6 @@ export default {
   ],
   computed: {
     isNameSpecified: function() {
-      console.log("test", this.object)
       return this.object.user.first_name && this.object.user.last_name;
     },
     getTimeAndDate: function() {
@@ -47,19 +46,21 @@ export default {
     },
   },
   methods: {
+    getCommentTimeAndDate(item) {
+      return new Date(item.date).toLocaleDateString() + ' ' + new Date(item.date).toLocaleTimeString()
+    },
     showComments() {
       this.commentsShown = !this.commentsShown
     },
     loadComments() {
-      console.log("test")
+      console.log("list lenght", this.list.length ? this.list[0].date : undefined)
       getComments(this.object._id, {
-        limit: 2,
-        newest: this.list.length ? this.list[this.list.length - 1].date : undefined
+        limit: 3,
+        newest: this.list.length ? this.list[0].date : undefined
       })
       .then(data => {
-        console.log(data)
         if (data.length) {
-          this.list = this.data.concat(this.list)
+          this.list = data.concat(this.list)
         } else {
           this.noComments = true
         }
@@ -70,13 +71,12 @@ export default {
     },
 
     hasName(item) {
-      console.log(item)
       return item.user.first_name && item.user.last_name
     },
     comment() {
       sendComment(this.object._id, this.message)
       .then(data => {
-        this.list.unshift(data)
+        this.list.push(data)
         this.message = null
       })
       .catch(err => {

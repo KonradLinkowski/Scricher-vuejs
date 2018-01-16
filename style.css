@@ -26,6 +26,11 @@ svg {
   flex-direction: column;
   /*align-items: center;*/
 }
+.comment {
+  font-size: 0.9rem;
+  padding: 10px;
+  background-color: rgb(60, 60, 60)
+}
 .container {
     display: flex;
     justify-content: space-around;
@@ -41,6 +46,9 @@ svg {
   background-color: rgb(51, 51, 51);
   padding: 20px;
   margin: 20px;
+}
+.no-shrink {
+  flex-shrink: 0;
 }
 .form-user {
   width: 100%;
