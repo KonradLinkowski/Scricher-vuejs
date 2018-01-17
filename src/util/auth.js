@@ -91,6 +91,7 @@ export function register(userEmail, userPassword, fname, lname) {
     last_name: lname
   })
   .then(response => {
+    console.log(response)
     login(userEmail, userPassword)
   })
   .catch(error => {

@@ -149,3 +149,41 @@ export function removeUser(id) {
     })
   })
 }
+
+export function removePost(id) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'delete',
+      url: serverAdress + 'posts/' + id,
+      headers: {
+        'Authorization': 'JWT ' + getToken()
+      }
+    })
+    .then(({ data }) => {
+      console.log('post ', data)
+      resolve(data)
+    })
+    .catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+export function removeComment(id) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'delete',
+      url: serverAdress + 'comments/' + id,
+      headers: {
+        'Authorization': 'JWT ' + getToken()
+      }
+    })
+    .then(({ data }) => {
+      console.log('comment ', data)
+      resolve(data)
+    })
+    .catch((error) => {
+      reject(error)
+    })
+  })
+}

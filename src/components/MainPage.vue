@@ -2,8 +2,8 @@
   <div class="container vert-cont" id="maindiv">
     <span @click="logout">Logout</span>
     <PostForm @post-added="onPostAdded" />
-    <div class="container vert-cont" v-for="item in list" :key='item._id'>
-      <Post :object="item" />
+    <div class="container vert-cont" v-for="(item, index) in list" :key='item._id'>
+      <Post @post-deleted="onPostDeleted" :object="item" :index="index" />
     </div>
     <infinite-loading @infinite="infiniteHandler">
       <span slot="no-more">
@@ -51,6 +51,9 @@ export default {
       //this.list.push(value)
       this.list.unshift(value)
       console.log('lot', this.list)
+    },
+    onPostDeleted(index) {
+      this.list.splice(index)
     }
   },
   components: {

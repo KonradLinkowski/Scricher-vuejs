@@ -4,17 +4,13 @@
     <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }} </router-link>
     <p>{{ object.message }}</p>
     <p>{{ getTimeAndDate }}</p>
+    <p v-if="canBeRemoved" @click="removePost">DELETE</p>
     <button @click.once="loadComments()" @click="showComments()">Show Comments</button>
     <div v-show="commentsShown">
       <a href="#" v-show="!noComments" @click.prevent="loadComments()">Load More</a>
       <span v-show="noComments">No more comments</span>
-      <div class="container vert-cont" v-for="item in list" :key='item._id'>
-        <div class="comment">
-          <router-link :to="{ path: '/' + item.user._id, params: { user: item.user } }" v-if="hasName(item)">{{ item.user.first_name }} {{ item.user.last_name }}</router-link>
-          <router-link :to="{ path: '/' + item.user._id, params: { user: item.user } }" v-else>{{ item.user.email }}</router-link>
-          <p>{{ item.message }}</p>
-          <span>{{ getCommentTimeAndDate(item) }}</span>
-        </div>
+      <div class="container vert-cont" v-for="(item, index) in list" :key='item._id'>
+        <Comment @comment-deleted="onCommentDeleted" :object="item" :index="index" />
       </div>
       <textarea v-model="message" placeholder="Comment me!" />
       <button @click="comment()">Comment</button>
@@ -23,8 +19,10 @@
 </template>
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
-import { getComments, sendComment } from '../util/api'
+import Comment from './Comment'
+import { getComments, sendComment, removePost } from '../util/api'
 import { getUser } from '../util/auth'
+import roles from '../util/roles'
 export default {
   data() {
     return {
@@ -35,7 +33,8 @@ export default {
     }
   },
   props: [
-    'object'
+    'object',
+    'index'
   ],
   computed: {
     isNameSpecified: function() {
@@ -44,11 +43,13 @@ export default {
     getTimeAndDate: function() {
       return new Date(this.object.date).toLocaleDateString() + ' ' + new Date(this.object.date).toLocaleTimeString()
     },
+    canBeRemoved: function() {
+      let user = getUser()
+      console.log(user.role, roles.ADMIN, this.object.user._id, user._id)
+      return user.role == roles.ADMIN || this.object.user._id == user._id
+    }
   },
   methods: {
-    getCommentTimeAndDate(item) {
-      return new Date(item.date).toLocaleDateString() + ' ' + new Date(item.date).toLocaleTimeString()
-    },
     showComments() {
       this.commentsShown = !this.commentsShown
     },
@@ -69,9 +70,14 @@ export default {
         console.log(error)
       })
     },
-
-    hasName(item) {
-      return item.user.first_name && item.user.last_name
+    removePost() {
+      removePost(this.object._id)
+      .then(result => {
+        this.$emit("post-deleted", this.index)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     },
     comment() {
       sendComment(this.object._id, this.message)
@@ -83,9 +89,13 @@ export default {
         console.log(err)
       })
     },
+    onCommentDeleted(value) {
+      this.list.splice(value)
+    }
   },
   components: {
     InfiniteLoading,
+    Comment
   }
 }
 </script>
