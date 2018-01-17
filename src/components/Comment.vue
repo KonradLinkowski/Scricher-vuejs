@@ -34,7 +34,6 @@ export default {
     removeComment() {
       removeComment(this.object._id)
       .then(result => {
-        console.log(result)
         this.$emit("comment-deleted", this.index)
       })
       .catch(err => {

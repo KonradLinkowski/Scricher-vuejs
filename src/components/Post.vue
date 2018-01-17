@@ -45,7 +45,6 @@ export default {
     },
     canBeRemoved: function() {
       let user = getUser()
-      console.log(user.role, roles.ADMIN, this.object.user._id, user._id)
       return user.role == roles.ADMIN || this.object.user._id == user._id
     }
   },
@@ -54,7 +53,6 @@ export default {
       this.commentsShown = !this.commentsShown
     },
     loadComments() {
-      console.log("list lenght", this.list.length ? this.list[0].date : undefined)
       getComments(this.object._id, {
         limit: 3,
         newest: this.list.length ? this.list[0].date : undefined

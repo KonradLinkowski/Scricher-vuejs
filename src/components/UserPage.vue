@@ -43,7 +43,6 @@ export default {
         newest: this.list.length ? this.list[this.list.length - 1].date : undefined
       })
       .then(data => {
-        console.log(this.$route.params)
           if (data.length) {
             this.list = this.list.concat(data)
             $state.loaded();
@@ -73,7 +72,6 @@ export default {
   created() {
     getUserById(this.$route.params.userid)
     .then(user => {
-      console.log(user)
       this.user = user
     })
     .catch(error => {

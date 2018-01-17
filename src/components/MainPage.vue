@@ -47,8 +47,6 @@ export default {
       logout()
     },
     onPostAdded(value) {
-      console.log(value.user)
-      //this.list.push(value)
       this.list.unshift(value)
       console.log('lot', this.list)
     },

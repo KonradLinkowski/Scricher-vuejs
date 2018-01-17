@@ -26,15 +26,6 @@ export default {
       })
     }
   },
-  /*
-  mounted: function() {
-    console.log(message_input)
-    message_input.onkeypress = function(e){
-      if(e.keyCode==13)
-      submit_button.click();
-    };
-  }
-  */
 }
 </script>
 

@@ -8,7 +8,6 @@ const serverAdress = "http://localhost:3000/api/auth/"
 export function test() {
   axios.get('http://localhost:3000')
   .then(response => {
-    console.log(response.data)
   })
   .catch(error => {
     console.log(error)
@@ -91,7 +90,6 @@ export function register(userEmail, userPassword, fname, lname) {
     last_name: lname
   })
   .then(response => {
-    console.log(response)
     login(userEmail, userPassword)
   })
   .catch(error => {
