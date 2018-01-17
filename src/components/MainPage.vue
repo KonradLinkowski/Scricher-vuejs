@@ -1,5 +1,6 @@
 <template>
   <div class="container vert-cont" id="maindiv">
+    <span @click="logout">Logout</span>
     <PostForm @post-added="onPostAdded" />
     <div class="container vert-cont" v-for="item in list" :key='item._id'>
       <Post :object="item" />
@@ -16,7 +17,7 @@ import PostForm from './PostForm'
 import Post from './Post'
 import InfiniteLoading from 'vue-infinite-loading';
 import { getPosts } from '../util/api'
-import { getUser } from '../util/auth'
+import { getUser, logout } from '../util/auth'
 
 export default {
   data() {
@@ -41,6 +42,9 @@ export default {
             $state.complete();
           }
       })
+    },
+    logout() {
+      logout()
     },
     onPostAdded(value) {
       console.log(value.user)

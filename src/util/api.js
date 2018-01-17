@@ -46,6 +46,48 @@ export function getPosts(params) {
   })
 }
 
+export function getUsersPosts(userid, params) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url: serverAdress + 'users/posts/' + userid,
+      headers: {
+        'Authorization': 'JWT ' + getToken()
+      },
+      params: params
+    })
+    .then(({ data }) => {
+      console.log(data)
+      resolve(data)
+    })
+    .catch(error => {
+      console.log(error)
+      reject(error)
+    })
+  })
+}
+
+export function getUserById(userid, params) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url: serverAdress + 'users/' + userid,
+      headers: {
+        'Authorization': 'JWT ' + getToken()
+      },
+      params: params
+    })
+    .then(({ data }) => {
+      console.log(data)
+      resolve(data)
+    })
+    .catch(error => {
+      console.log(error)
+      reject(error)
+    })
+  })
+}
+
 export function sendComment(id, message) {
   return new Promise((resolve, reject) => {
     axios({
@@ -81,6 +123,25 @@ export function getComments(id, params) {
     })
     .then(({ data }) => {
       console.log("comment ", data)
+      resolve(data)
+    })
+    .catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+export function removeUser(id) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'delete',
+      url: serverAdress + 'users/' + id,
+      headers: {
+        'Authorization': 'JWT ' + getToken()
+      }
+    })
+    .then(({ data }) => {
+      console.log('user ', data)
       resolve(data)
     })
     .catch((error) => {

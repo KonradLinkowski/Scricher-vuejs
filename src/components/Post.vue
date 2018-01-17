@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <a href="#" @click.prevent v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</a>
-    <a href="#" @click.prevent v-else>{{ object.user.email }}</a>
+    <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</router-link>
+    <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }} </router-link>
     <p>{{ object.message }}</p>
     <p>{{ getTimeAndDate }}</p>
     <button @click.once="loadComments()" @click="showComments()">Show Comments</button>
@@ -10,8 +10,8 @@
       <span v-show="noComments">No more comments</span>
       <div class="container vert-cont" v-for="item in list" :key='item._id'>
         <div class="comment">
-          <a href="#" @click.prevent v-if="hasName(item)">{{ item.user.first_name }} {{ item.user.last_name }}</a>
-          <a href="#" @click.prevent v-else>{{ item.user.email }}</a>
+          <router-link :to="{ path: '/' + item.user._id, params: { user: item.user } }" v-if="hasName(item)">{{ item.user.first_name }} {{ item.user.last_name }}</router-link>
+          <router-link :to="{ path: '/' + item.user._id, params: { user: item.user } }" v-else>{{ item.user.email }}</router-link>
           <p>{{ item.message }}</p>
           <span>{{ getCommentTimeAndDate(item) }}</span>
         </div>
