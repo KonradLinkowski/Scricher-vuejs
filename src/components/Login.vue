@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h2>Already with us? Log in!</h2>
+    <h2>Log in!</h2>
     <form class="form-user" @submit.prevent="login()">
       <label for="email">Email</label>
       <input v-model="email" type="text" id="login_email"

@@ -4,7 +4,7 @@
     <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }}</router-link>
     <p>{{ object.message }}</p>
     <span>{{ getTimeAndDate }}</span>
-    <p v-if="canBeRemoved" @click="removeComment()">DELETE</p>
+    <button v-if="canBeRemoved" @click="removeComment()">DELETE</button>
   </div>
 </template>
 
@@ -26,7 +26,6 @@ export default {
     },
     canBeRemoved: function() {
       let user = getUser()
-      console.log(user.role, roles.ADMIN, this.object.user._id, user._id)
       return user.role == roles.ADMIN || this.object.user._id == user._id
     }
   },
@@ -37,7 +36,8 @@ export default {
         this.$emit("comment-deleted", this.index)
       })
       .catch(err => {
-        console.log(err)
+        alert(err.data)
+        console.error(err);window.alert(err.data);
       })
     },
   }

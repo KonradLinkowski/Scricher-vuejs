@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h2>Don't have an account? Sign in!</h2>
+    <h2>Sign in!</h2>
     <form class="form-user" @submit.prevent="register()">
       <label for="email">Email</label>
       <input v-model="email" type="text" id="email" name="email" placeholder="user@exmaple.com" required pattern=".+@.+[.].+">

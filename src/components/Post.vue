@@ -4,7 +4,7 @@
     <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }} </router-link>
     <p>{{ object.message }}</p>
     <p>{{ getTimeAndDate }}</p>
-    <p v-if="canBeRemoved" @click="removePost">DELETE</p>
+    <button v-if="canBeRemoved" @click="removePost">DELETE</button>
     <button @click.once="loadComments()" @click="showComments()">Show Comments</button>
     <div v-show="commentsShown">
       <a href="#" v-show="!noComments" @click.prevent="loadComments()">Load More</a>
@@ -65,7 +65,7 @@ export default {
         }
       })
       .catch(error => {
-        console.log(error)
+        console.error(error);window.alert(error.data);
       })
     },
     removePost() {
@@ -74,7 +74,7 @@ export default {
         this.$emit("post-deleted", this.index)
       })
       .catch(err => {
-        console.log(err)
+        console.error(err);window.alert(err.data);
       })
     },
     comment() {
@@ -84,11 +84,11 @@ export default {
         this.message = null
       })
       .catch(err => {
-        console.log(err)
+        console.error(err);window.alert(err.data);
       })
     },
     onCommentDeleted(value) {
-      this.list.splice(value)
+      this.list.splice(value, 1)
     }
   },
   components: {

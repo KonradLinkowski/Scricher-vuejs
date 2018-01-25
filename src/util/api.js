@@ -20,7 +20,6 @@ export function sendPost(message) {
       resolve(data)
     })
     .catch(error => {
-      console.log(error)
       reject(error)
     })
   })
@@ -61,7 +60,6 @@ export function getUsersPosts(userid, params) {
       resolve(data)
     })
     .catch(error => {
-      console.log(error)
       reject(error)
     })
   })
@@ -82,7 +80,6 @@ export function getUserById(userid, params) {
       resolve(data)
     })
     .catch(error => {
-      console.log(error)
       reject(error)
     })
   })
@@ -105,7 +102,6 @@ export function sendComment(id, message) {
       resolve(data)
     })
     .catch(error => {
-      console.log(error)
       reject(error)
     })
   })

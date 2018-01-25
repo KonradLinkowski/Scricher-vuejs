@@ -5,15 +5,6 @@ import decode from 'jwt-decode'
 const tokenKey = 'JWTtoken'
 const serverAdress = "http://localhost:3000/api/auth/"
 
-export function test() {
-  axios.get('http://localhost:3000')
-  .then(response => {
-  })
-  .catch(error => {
-    console.log(error)
-  })
-}
-
 export function requireAuth(to, from, next) {
   next();
   if (!isLoggedIn()) {
@@ -41,7 +32,7 @@ export function isLoggedIn() {
   try {
     token = decode(token)
   } catch (err) {
-    console.log(err)
+    console.error(err);window.alert(err.data);
     return false;
   }
   return true
@@ -78,7 +69,7 @@ export function login(userEmail, userPassword) {
     router.push('/')
   })
   .catch(error => {
-    console.log(error)
+    console.error(error);window.alert(error.data);
   })
 }
 
@@ -93,7 +84,7 @@ export function register(userEmail, userPassword, fname, lname) {
     login(userEmail, userPassword)
   })
   .catch(error => {
-    console.log(error)
+    console.error(error);window.alert(error.data);
   })
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h2>What's up?</h2>
+    <h2>Create post</h2>
     <textarea id="message_input" type="text" v-model="message" class="big-font wide" placeholder="What's up?"/>
     <button id="submit_button" @click="post()">Create</button>
   </div>
@@ -22,7 +22,7 @@ export default {
         this.message = null
       })
       .catch(error => {
-        console.log(error)
+        console.error(error);window.alert(error.data);
       })
     }
   },

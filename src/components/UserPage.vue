@@ -1,10 +1,11 @@
 <template>
   <div class="container vert-cont" id="maindiv">
+    <Navbar />
     <div class="card">
-      <p> First name: {{ user.first_name }}</p>
-      <p> Last name: {{ user.last_name }}</p>
-      <p> Email: {{ user.email }} </p>
-      <p color="red" @click="removeAccount">DELETE ACCOUNT</p>
+      <p> First name: <strong>{{ user.first_name }}</strong></p>
+      <p> Last name: <strong>{{ user.last_name }}</strong></p>
+      <p> Email: <strong>{{ user.email }}</strong></p>
+      <button class="alert" v-if="canBeDeleted" @click="removeAccount">DELETE ACCOUNT</button>
     </div>
     <div class="container vert-cont" v-for="item in list" :key='item._id'>
       <Post :object="item" />
@@ -19,9 +20,11 @@
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
 import Post from './Post'
+import Navbar from './Navbar'
 import { getUsersPosts, getUserById, removeUser } from '../util/api'
 import { logout, getUser } from '../util/auth'
 import router from '../router'
+import roles from '../util/roles'
 export default {
   name: 'UserPage',
   data() {
@@ -35,6 +38,21 @@ export default {
     };
   },
   computed: {
+    canBeDeleted: function() {
+      let user = getUser()
+      return user.role == roles.ADMIN || user._id == this.$route.params.userid
+    }
+  },
+  watch: {
+    '$route.params.userid': function () {
+      getUserById(this.$route.params.userid)
+      .then(user => {
+        this.user = user
+      })
+      .catch(error => {
+        console.error(error);window.alert(error.data); 
+      })
+    }
   },
   methods: {
     infiniteHandler($state) {
@@ -46,9 +64,6 @@ export default {
           if (data.length) {
             this.list = this.list.concat(data)
             $state.loaded();
-            /*if (this.list.length / 20 === 2) {
-              $state.complete();
-            }*/
           } else {
             $state.complete();
           }
@@ -57,30 +72,33 @@ export default {
     removeAccount() {
       removeUser(this.user._id)
       .then(data => {
-        console.log(data)
-        if (getUser().role != 3) {
-          logout()
-        } else {
+        switch(getUser().role) {
+          case roles.ADMIN:
           router.push('/')
+          break
+          default:
+          logout()
+          break
         }
       })
       .catch(err => {
-        console.log(err)
+        console.error(err);window.alert(err.data);
       })
     }
   },
-  created() {
+  mounted() {
     getUserById(this.$route.params.userid)
     .then(user => {
       this.user = user
     })
     .catch(error => {
-      console.log(error) 
+      console.error(error);window.alert(error.data); 
     })
   },
   components: {
     InfiniteLoading,
-    Post
+    Post,
+    Navbar
   },
 };
 </script>

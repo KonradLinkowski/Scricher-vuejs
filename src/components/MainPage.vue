@@ -1,6 +1,6 @@
 <template>
   <div class="container vert-cont" id="maindiv">
-    <span @click="logout">Logout</span>
+    <Navbar />
     <PostForm @post-added="onPostAdded" />
     <div class="container vert-cont" v-for="(item, index) in list" :key='item._id'>
       <Post @post-deleted="onPostDeleted" :object="item" :index="index" />
@@ -15,9 +15,11 @@
 <script>
 import PostForm from './PostForm'
 import Post from './Post'
+import Navbar from './Navbar'
 import InfiniteLoading from 'vue-infinite-loading';
 import { getPosts } from '../util/api'
-import { getUser, logout } from '../util/auth'
+import { getUser} from '../util/auth'
+import router from '../router'
 
 export default {
   data() {
@@ -42,22 +44,24 @@ export default {
             $state.complete();
           }
       })
-    },
-    logout() {
-      logout()
+      .catch(err => {
+        console.error(err);
+        window.alert(err.data);
+        router.push('/login')
+      })
     },
     onPostAdded(value) {
       this.list.unshift(value)
-      console.log('lot', this.list)
     },
     onPostDeleted(index) {
-      this.list.splice(index)
+      this.list.splice(index, 1)
     }
   },
   components: {
     InfiniteLoading,
     PostForm,
-    Post
+    Post,
+    Navbar
   },
 };
 </script>
