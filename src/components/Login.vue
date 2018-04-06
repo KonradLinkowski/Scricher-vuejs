@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     login() {
-      test();
       login(this.email, this.password);
     }
   }
