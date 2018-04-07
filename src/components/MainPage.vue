@@ -1,8 +1,8 @@
 <template>
-  <div class="container vert-cont" id="maindiv">
+  <div>
     <Navbar />
     <PostForm @post-added="onPostAdded" />
-    <div class="container vert-cont" v-for="(item, index) in list" :key='item._id'>
+    <div v-for="(item, index) in list" :key='item._id'>
       <Post @post-deleted="onPostDeleted" :object="item" :index="index" />
     </div>
     <infinite-loading @infinite="infiniteHandler">

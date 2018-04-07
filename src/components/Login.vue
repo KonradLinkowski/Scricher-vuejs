@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="login">
     <h2>Log in!</h2>
     <form class="form-user" @submit.prevent="login()">
       <label for="email">Email</label>
@@ -29,3 +29,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+.form-user {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+</style>
+

@@ -36,3 +36,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+.form-user {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+</style>

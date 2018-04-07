@@ -1,11 +1,11 @@
 <template>
-  <article class="container vert-cont">
+  <article class="">
     <h1>Scricher</h1>
-    <div class="container">
-      <div class="container col8">
+    <div class="">
+      <div class="">
         <!--img src="https://vectr.com/konowy/i3Q2IXrnWA.png?width=1280&height=1280&select=i3Q2IXrnWApage0"-->
       </div>
-      <div class="container vert-cont col4 no-shrink">
+      <div class="wrapper">
         <Login />
         <Register />
       </div>
@@ -30,3 +30,5 @@ export default {
     }
 }
 </script>
+<style scoped>
+</style>

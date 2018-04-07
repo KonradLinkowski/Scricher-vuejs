@@ -1,21 +1,19 @@
 <template>
-  <div class="card">
-    <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</router-link>
-    <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }} </router-link>
-    <p>{{ object.message }}</p>
-    <p>{{ getTimeAndDate }}</p>
-    <button v-if="canBeRemoved" @click="removePost">DELETE</button>
-    <button @click.once="loadComments()" @click="showComments()">Show Comments</button>
-    <div v-show="commentsShown">
-      <a href="#" v-show="!noComments" @click.prevent="loadComments()">Load More</a>
-      <span v-show="noComments">No more comments</span>
-      <div class="container vert-cont" v-for="(item, index) in list" :key='item._id'>
-        <Comment @comment-deleted="onCommentDeleted" :object="item" :index="index" />
-      </div>
-      <textarea v-model="message" placeholder="Comment me!" />
-      <button @click="comment()">Comment</button>
+  <article class="post">
+    <router-link class="username" :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</router-link>
+    <router-link class="username" :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }} </router-link>
+    <p class="message">{{ object.message }}</p>
+    <span class="date">{{ getTimeAndDate }}</span>
+    <button class="delete-btn" v-if="canBeRemoved" @click="removePost">DELETE</button>
+    <button class="load-btn" @click.once="loadComments()" @click="showComments()">{{ commentsShown ? 'Hide' : 'Show'}} Comments</button>
+    <div class="comments" v-show="commentsShown">
+      <a class="loadmore-btn" href="#" v-show="!noComments" @click.prevent="loadComments()">Load More</a>
+      <!--<span v-show="noComments">No more comments</span>-->
+      <Comment @comment-deleted="onCommentDeleted" v-for="(item, index) in list" :key='item._id' :object="item" :index="index" />
+      <textarea class="message" v-model="message" placeholder="Comment me!" />
+      <button class="submit-btn" @click="comment()">Comment</button>
     </div>
-  </div>
+  </article>
 </template>
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
@@ -97,3 +95,90 @@ export default {
   }
 }
 </script>
+<style scoped>
+.post {
+  margin: 10px 0 20px 0;
+}
+
+.post > .message {
+  overflow-wrap: break-word;
+  font-size: 1.1rem;
+  margin: 3px 0 3px 0;
+}
+
+.date-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.date {
+  color: var(--green-color);
+  font-size: 0.8rem;
+}
+
+.username {
+  color: var(--orange-color);
+  text-decoration: none;
+}
+
+.load-btn {
+  color: var(--red-color);
+  border-color: var(--red-color);
+  border-style: solid;
+  border-width: 1px;
+  background-color: inherit;
+  padding: 5px;
+  border-collapse: collapse;
+  display: block;
+  margin: 5px 0 5px 0;
+}
+
+.delete-btn {
+  color: var(--red-color);
+  border-color: var(--red-color);
+  border-style: solid;
+  border-width: 1px;
+  background-color: inherit;
+  font-size: 0.8rem;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.comments .message {
+  font-size: 1.0rem;
+  color: var(--blue-color);
+  resize: none;
+  height: 3rem;
+  background: var(--background-color);
+  border-color: var(--green-color);
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.comments .submit-btn {
+  align-self: flex-end;
+  flex: 0;
+  color: var(--red-color);
+  border-color: var(--red-color);
+  border-style: solid;
+  border-width: 2px;
+  background-color: inherit;
+  padding: 10px;
+}
+.comments .loadmore-btn {
+  align-self: flex-start;
+  flex: 0;
+  text-decoration: none;
+  color: var(--red-color);
+  border-color: var(--red-color);
+  border-style: solid;
+  border-width: 1px;
+  background-color: inherit;
+  padding: 2px;
+  margin-top: 5px;
+}
+</style>

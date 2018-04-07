@@ -1,10 +1,14 @@
 <template>
   <div class="comment">
-    <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</router-link>
-    <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }}</router-link>
-    <p>{{ object.message }}</p>
-    <span>{{ getTimeAndDate }}</span>
-    <button v-if="canBeRemoved" @click="removeComment()">DELETE</button>
+    <p class="message">
+      <span class="username">
+        <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-if="isNameSpecified">{{ object.user.first_name }} {{ object.user.last_name }}</router-link>
+        <router-link :to="{ path: '/' + object.user._id, params: { user: object.user } }" v-else>{{ object.user.email }}</router-link>
+      </span>
+      {{ object.message }}
+    </p>
+    <span class="date">{{ getTimeAndDate }}</span>
+    <button class="delete-btn" v-if="canBeRemoved" @click="removeComment()">DELETE</button>
   </div>
 </template>
 
@@ -43,4 +47,21 @@ export default {
   }
 }
 </script>
-
+<style scoped>
+.comment .username * {
+  color: var(--orange-color);
+  text-decoration: none;
+}
+.date {
+  color: var(--green-color);
+  font-size: 0.9rem;
+}
+.delete-btn {
+  color: var(--red-color);
+  background: inherit;
+  border-color: var(--red-color);
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+}
+</style>

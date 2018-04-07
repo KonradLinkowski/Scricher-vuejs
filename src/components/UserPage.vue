@@ -1,13 +1,13 @@
 <template>
-  <div class="container vert-cont" id="maindiv">
+  <div class="wrapper" id="maindiv">
     <Navbar />
-    <div class="card">
+    <div class="user-info">
       <p> First name: <strong>{{ user.first_name }}</strong></p>
       <p> Last name: <strong>{{ user.last_name }}</strong></p>
       <p> Email: <strong>{{ user.email }}</strong></p>
-      <button class="alert" v-if="canBeDeleted" @click="removeAccount">DELETE ACCOUNT</button>
+      <button class="delete-btn" v-if="canBeDeleted" @click="removeAccount">DELETE ACCOUNT</button>
     </div>
-    <div class="container vert-cont" v-for="item in list" :key='item._id'>
+    <div class="" v-for="item in list" :key='item._id'>
       <Post :object="item" />
     </div>
     <infinite-loading @infinite="infiniteHandler">
@@ -30,9 +30,9 @@ export default {
   data() {
     return {
       user: {
-        first_name: 'placeholder',
-        last_name: 'placeholder',
-        email: 'placeholder'
+        first_name: '',
+        last_name: '',
+        email: ''
       },
       list: [],
     };
@@ -102,3 +102,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.delete-btn {
+  color: var(--red-color);
+  background: inherit;
+  border-color: var(--red-color);
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+}
+</style>
