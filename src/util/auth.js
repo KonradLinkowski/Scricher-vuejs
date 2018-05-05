@@ -3,7 +3,9 @@ import router from '../router'
 import decode from 'jwt-decode'
 
 const tokenKey = 'JWTtoken'
-const serverAdress = "http://localhost:3000/api/auth/"
+const serverAdress = process.env.NODE_ENV == 'production'
+  ? 'http://scricher.herokuapp.com/api/auth/'
+  : "http://localhost:3000/api/auth/"
 
 export function requireAuth(to, from, next) {
   next();

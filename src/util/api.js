@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { getToken } from './auth'
 
-const serverAdress = "http://localhost:3000/api/"
+const serverAdress = process.env.NODE_ENV == 'production'
+  ? 'http://scricher.herokuapp.com/api/'
+  : "http://localhost:3000/api/"
 
 export function sendPost(message) {
   return new Promise((resolve, reject) => {
