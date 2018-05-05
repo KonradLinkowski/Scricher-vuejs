@@ -12,7 +12,7 @@
     </div>
     <infinite-loading @infinite="infiniteHandler">
       <span slot="no-more">
-        There is no more posts :(
+        Nothing to load
       </span>
     </infinite-loading>
   </div>
