@@ -16,7 +16,6 @@ export function sendPost(message) {
       }
     })
     .then(({ data }) => {
-      console.log(data)
       resolve(data)
     })
     .catch(error => {
@@ -36,7 +35,6 @@ export function getPosts(params) {
       params: params
     })
     .then(({ data }) => {
-      console.log(data)
       resolve(data)
     })
     .catch((error) => {
@@ -56,7 +54,6 @@ export function getUsersPosts(userid, params) {
       params: params
     })
     .then(({ data }) => {
-      console.log(data)
       resolve(data)
     })
     .catch(error => {
@@ -76,7 +73,6 @@ export function getUserById(userid, params) {
       params: params
     })
     .then(({ data }) => {
-      console.log(data)
       resolve(data)
     })
     .catch(error => {
@@ -98,7 +94,6 @@ export function sendComment(id, message) {
       }
     })
     .then(({ data }) => {
-      console.log(data)
       resolve(data)
     })
     .catch(error => {
@@ -118,7 +113,6 @@ export function getComments(id, params) {
       params: params
     })
     .then(({ data }) => {
-      console.log("comment ", data)
       resolve(data)
     })
     .catch((error) => {
@@ -137,7 +131,6 @@ export function removeUser(id) {
       }
     })
     .then(({ data }) => {
-      console.log('user ', data)
       resolve(data)
     })
     .catch((error) => {
@@ -156,7 +149,6 @@ export function removePost(id) {
       }
     })
     .then(({ data }) => {
-      console.log('post ', data)
       resolve(data)
     })
     .catch((error) => {
@@ -175,7 +167,6 @@ export function removeComment(id) {
       }
     })
     .then(({ data }) => {
-      console.log('comment ', data)
       resolve(data)
     })
     .catch((error) => {
