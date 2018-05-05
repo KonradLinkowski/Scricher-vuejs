@@ -20,7 +20,7 @@ import InfiniteLoading from 'vue-infinite-loading'
 import { getPosts } from '../util/api'
 import { getUser} from '../util/auth'
 import router from '../router'
-
+import eventBus from '../util/eventbus'
 export default {
   data() {
     return {
@@ -46,7 +46,7 @@ export default {
       })
       .catch(err => {
         console.error(err)
-        window.alert(err.message)
+        eventBus.$emit('error-thrown', err)
         router.push('/login')
       })
     },

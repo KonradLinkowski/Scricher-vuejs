@@ -21,6 +21,7 @@ import Comment from './Comment'
 import { getComments, sendComment, removePost } from '../util/api'
 import { getUser } from '../util/auth'
 import roles from '../util/roles'
+import eventBus from '../util/eventbus'
 export default {
   data() {
     return {
@@ -64,7 +65,7 @@ export default {
       })
       .catch(err => {
         console.error(err)
-        window.alert(err.message)
+        eventBus.$emit('error-thrown', err)
       })
     },
     removePost() {
@@ -74,7 +75,7 @@ export default {
       })
       .catch(err => {
         console.error(err)
-        window.alert(err.message)
+        eventBus.$emit('error-thrown', err)
       })
     },
     comment() {
@@ -85,7 +86,7 @@ export default {
       })
       .catch(err => {
         console.error(err)
-        window.alert(err.message)
+        eventBus.$emit('error-thrown', err)
       })
     },
     onCommentDeleted(value) {

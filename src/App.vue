@@ -21,6 +21,7 @@ export default {
   mounted() {
     eventBus.$on('error-thrown', error => {
       error.id = ++this.currentId
+      this.errors.push(error)
     })
     eventBus.$on('event-closed', id => {
       this.errors = this.errors.filter(err => {

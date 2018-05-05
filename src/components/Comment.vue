@@ -16,6 +16,7 @@
 import { removeComment } from '../util/api'
 import { getUser } from '../util/auth'
 import roles from '../util/roles'
+import eventBus from '../util/eventbus'
 export default {
   props: [
     'object',
@@ -40,9 +41,8 @@ export default {
         this.$emit("comment-deleted", this.index)
       })
       .catch(err => {
-        alert(err.message)
         console.error(err)
-        window.alert(err.message)
+        eventBus.$emit('error-thrown', err)
       })
     },
   }

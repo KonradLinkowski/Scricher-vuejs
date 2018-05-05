@@ -7,7 +7,7 @@
 </template>
 <script>
 import { sendPost } from '../util/api'
-
+import eventBus from '../util/eventbus'
 export default {
   data() {
     return {
@@ -23,7 +23,7 @@ export default {
       })
       .catch(err => {
         console.error(err)
-        window.alert(err.message)
+        eventBus.$emit('error-thrown', err)
       })
     }
   },

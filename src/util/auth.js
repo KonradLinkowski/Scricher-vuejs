@@ -35,7 +35,7 @@ export function isLoggedIn() {
     token = decode(token)
   } catch (err) {
     console.error(err)
-    window.alert(err.message)
+    eventBus.$emit('error-thrown', err)
     return false
   }
   console.log(token)
@@ -74,7 +74,7 @@ export function login(userEmail, userPassword) {
   })
   .catch(err => {
     console.error(err)
-    window.alert(err.message)
+    eventBus.$emit('error-thrown', err)
   })
 }
 
@@ -90,7 +90,7 @@ export function register(userEmail, userPassword, fname, lname) {
   })
   .catch(err => {
     console.error(err)
-    window.alert(err.message)
+    eventBus.$emit('error-thrown', err)
   })
 }
 
