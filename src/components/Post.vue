@@ -131,6 +131,12 @@ export default {
   border-collapse: collapse;
   display: block;
   margin: 5px 0 5px 0;
+  cursor: pointer;
+}
+
+.load-btn:hover {
+  color: var(--background-color);
+  background-color: var(--red-color);
 }
 
 .delete-btn {
@@ -140,6 +146,12 @@ export default {
   border-width: 1px;
   background-color: inherit;
   font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  color: var(--background-color);
+  background-color: var(--red-color);
 }
 
 .comments {
@@ -168,7 +180,14 @@ export default {
   border-width: 2px;
   background-color: inherit;
   padding: 10px;
+  cursor: pointer;
 }
+
+.comments .submit-btn:hover {
+  color: var(--background-color);
+  background-color: var(--red-color);
+}
+
 .comments .loadmore-btn {
   align-self: flex-start;
   flex: 0;
@@ -180,5 +199,11 @@ export default {
   background-color: inherit;
   padding: 2px;
   margin-top: 5px;
+  cursor: pointer;
+}
+
+.comments .loadmore-btn:hover {
+  color: var(--background-color);
+  background-color: var(--red-color);
 }
 </style>

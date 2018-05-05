@@ -64,4 +64,8 @@ export default {
   border-width: 1px;
   cursor: pointer;
 }
+.delete-btn:hover {
+  color: var(--background-color);
+  background-color: var(--red-color); 
+}
 </style>

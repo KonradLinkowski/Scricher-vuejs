@@ -2,13 +2,13 @@
   <nav>
     <ul class="main-navbar">
       <li class="nav-item">
-        <router-link :to="{ path: '/' }">Main Page</router-link>
+        <router-link class="nav-button" :to="{ path: '/' }">Main Page</router-link>
       </li>
       <li class="nav-item">
-        <router-link :to="{ path: '/' + user._id, params: { user: user } }">{{ username }}</router-link>
+        <router-link class="nav-button" :to="{ path: '/' + user._id, params: { user: user } }">{{ username }}</router-link>
       </li>
       <li class="nav-item">
-        <button @click="logout">Logout</button>
+        <button class="nav-button" @click="logout">Logout</button>
       </li>
     </ul>
   </nav>
@@ -51,8 +51,7 @@ export default {
   align-items: center;
 }
 
-.nav-item a,
-.nav-item button {
+.nav-button {
   display: block;
   text-decoration: none;
   margin: 10px;
@@ -63,5 +62,11 @@ export default {
   background-color: inherit;
   padding: 10px;
   font-size: 1rem;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  color: var(--background-color);
+  background-color: var(--red-color);
 }
 </style>

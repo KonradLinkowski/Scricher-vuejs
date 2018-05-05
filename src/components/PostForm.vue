@@ -60,6 +60,12 @@ export default {
   border-width: 2px;
   background-color: inherit;
   padding: 10px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  color: var(--background-color);
+  background-color: var(--red-color);
 }
 </style>
 
