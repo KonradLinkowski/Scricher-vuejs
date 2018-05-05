@@ -1,12 +1,36 @@
 <template>
   <div id="app" class="main-app">
+    <div class="error-list">
+      <Error v-for="err in errors" :key="err.id" :error="err" />
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Error from './components/Error.vue'
+import eventBus from './util/eventbus'
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      errors: [],
+      currentId: 0
+    }
+  },
+  mounted() {
+    eventBus.$on('error-thrown', error => {
+      error.id = ++this.currentId
+    })
+    eventBus.$on('event-closed', id => {
+      this.errors = this.errors.filter(err => {
+        return err.id != id
+      })
+    })
+  },
+  components: {
+    Error
+  }
 }
 </script>
 <style>
@@ -34,5 +58,12 @@ body {
 
 .main-app {
   margin: 10px;
+}
+
+.error-list {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 </style>
