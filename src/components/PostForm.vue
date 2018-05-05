@@ -21,8 +21,9 @@ export default {
         this.$emit("post-added", data)
         this.message = null
       })
-      .catch(error => {
-        console.error(error);window.alert(error.data);
+      .catch(err => {
+        console.error(err)
+        window.alert(err.message)
       })
     }
   },

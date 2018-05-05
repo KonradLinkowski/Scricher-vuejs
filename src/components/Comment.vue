@@ -26,7 +26,7 @@ export default {
       return new Date(this.object.date).toLocaleDateString() + ' ' + new Date(this.object.date).toLocaleTimeString()
     },
     isNameSpecified: function() {
-      return this.object.user.first_name && this.object.user.last_name;
+      return this.object.user.first_name && this.object.user.last_name
     },
     canBeRemoved: function() {
       let user = getUser()
@@ -40,8 +40,9 @@ export default {
         this.$emit("comment-deleted", this.index)
       })
       .catch(err => {
-        alert(err.data)
-        console.error(err);window.alert(err.data);
+        alert(err.message)
+        console.error(err)
+        window.alert(err.message)
       })
     },
   }

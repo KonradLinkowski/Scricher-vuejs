@@ -16,7 +16,7 @@
   </article>
 </template>
 <script>
-import InfiniteLoading from 'vue-infinite-loading';
+import InfiniteLoading from 'vue-infinite-loading'
 import Comment from './Comment'
 import { getComments, sendComment, removePost } from '../util/api'
 import { getUser } from '../util/auth'
@@ -36,7 +36,7 @@ export default {
   ],
   computed: {
     isNameSpecified: function() {
-      return this.object.user.first_name && this.object.user.last_name;
+      return this.object.user.first_name && this.object.user.last_name
     },
     getTimeAndDate: function() {
       return new Date(this.object.date).toLocaleDateString() + ' ' + new Date(this.object.date).toLocaleTimeString()
@@ -62,8 +62,9 @@ export default {
           this.noComments = true
         }
       })
-      .catch(error => {
-        console.error(error);window.alert(error.data);
+      .catch(err => {
+        console.error(err)
+        window.alert(err.message)
       })
     },
     removePost() {
@@ -72,7 +73,8 @@ export default {
         this.$emit("post-deleted", this.index)
       })
       .catch(err => {
-        console.error(err);window.alert(err.data);
+        console.error(err)
+        window.alert(err.message)
       })
     },
     comment() {
@@ -82,7 +84,8 @@ export default {
         this.message = null
       })
       .catch(err => {
-        console.error(err);window.alert(err.data);
+        console.error(err)
+        window.alert(err.message)
       })
     },
     onCommentDeleted(value) {

@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     register() {
-      register(this.email, this.password, this.fname, this.lname);
+      register(this.email, this.password, this.fname, this.lname)
     }
   }
 }

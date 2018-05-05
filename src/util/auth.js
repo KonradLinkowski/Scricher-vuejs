@@ -8,13 +8,13 @@ const serverAdress = process.env.NODE_ENV == 'production'
   : "http://localhost:3000/api/auth/"
 
 export function requireAuth(to, from, next) {
-  next();
+  next()
   if (!isLoggedIn()) {
     next({
       path: '/login',
-    });
+    })
   } else {
-    next();
+    next()
   }
 }
 
@@ -30,13 +30,15 @@ export function getUser() {
 }
 
 export function isLoggedIn() {
-  let token = loadToken();
+  let token = loadToken()
   try {
     token = decode(token)
   } catch (err) {
-    console.error(err);window.alert(err.data);
-    return false;
+    console.error(err)
+    window.alert(err.message)
+    return false
   }
+  console.log(token)
   return true
 }
 
@@ -58,7 +60,7 @@ export function getToken() {
 
 export function logout() {
   router.push('/login')
-  deleteToken();
+  deleteToken()
 }
 
 export function login(userEmail, userPassword) {
@@ -70,8 +72,9 @@ export function login(userEmail, userPassword) {
     saveToken(response.data.token)
     router.push('/')
   })
-  .catch(error => {
-    console.error(error);window.alert(error.data);
+  .catch(err => {
+    console.error(err)
+    window.alert(err.message)
   })
 }
 
@@ -85,8 +88,9 @@ export function register(userEmail, userPassword, fname, lname) {
   .then(response => {
     login(userEmail, userPassword)
   })
-  .catch(error => {
-    console.error(error);window.alert(error.data);
+  .catch(err => {
+    console.error(err)
+    window.alert(err.message)
   })
 }
 

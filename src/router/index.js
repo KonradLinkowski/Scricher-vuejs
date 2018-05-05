@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import MainPage from '../components/MainPage';
-import LoginPage from '../components/LoginPage';
+import Vue from 'vue'
+import Router from 'vue-router'
+import MainPage from '../components/MainPage'
+import LoginPage from '../components/LoginPage'
 import UserPage from '../components/UserPage'
-import { requireAuth } from '../util/auth';
+import { requireAuth } from '../util/auth'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: 'hash',
@@ -28,4 +28,4 @@ export default new Router({
       component: UserPage,
     }
   ],
-});
+})

@@ -16,7 +16,7 @@
 import PostForm from './PostForm'
 import Post from './Post'
 import Navbar from './Navbar'
-import InfiniteLoading from 'vue-infinite-loading';
+import InfiniteLoading from 'vue-infinite-loading'
 import { getPosts } from '../util/api'
 import { getUser} from '../util/auth'
 import router from '../router'
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       list: [],
-    };
+    }
   },
   methods: {
     infiniteHandler($state) {
@@ -36,17 +36,17 @@ export default {
       .then(data => {
           if (data.length) {
             this.list = this.list.concat(data)
-            $state.loaded();
+            $state.loaded()
             /*if (this.list.length / 20 === 2) {
-              $state.complete();
+              $state.complete()
             }*/
           } else {
-            $state.complete();
+            $state.complete()
           }
       })
       .catch(err => {
-        console.error(err);
-        window.alert(err.data);
+        console.error(err)
+        window.alert(err.message)
         router.push('/login')
       })
     },

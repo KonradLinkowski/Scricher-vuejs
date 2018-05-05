@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import InfiniteLoading from 'vue-infinite-loading';
+import InfiniteLoading from 'vue-infinite-loading'
 import Post from './Post'
 import Navbar from './Navbar'
 import { getUsersPosts, getUserById, removeUser } from '../util/api'
@@ -35,7 +35,7 @@ export default {
         email: ''
       },
       list: [],
-    };
+    }
   },
   computed: {
     canBeDeleted: function() {
@@ -49,8 +49,9 @@ export default {
       .then(user => {
         this.user = user
       })
-      .catch(error => {
-        console.error(error);window.alert(error.data); 
+      .catch(err => {
+        console.error(err)
+        window.alert(err.message)
       })
     }
   },
@@ -63,9 +64,9 @@ export default {
       .then(data => {
           if (data.length) {
             this.list = this.list.concat(data)
-            $state.loaded();
+            $state.loaded()
           } else {
-            $state.complete();
+            $state.complete()
           }
       })
     },
@@ -82,7 +83,8 @@ export default {
         }
       })
       .catch(err => {
-        console.error(err);window.alert(err.data);
+        console.error(err)
+        window.alert(err.message)
       })
     }
   },
@@ -91,8 +93,9 @@ export default {
     .then(user => {
       this.user = user
     })
-    .catch(error => {
-      console.error(error);window.alert(error.data); 
+    .catch(err => {
+      console.error(err)
+      window.alert(err.message)
     })
   },
   components: {
@@ -100,7 +103,7 @@ export default {
     Post,
     Navbar
   },
-};
+}
 </script>
 <style scoped>
 .delete-btn {
