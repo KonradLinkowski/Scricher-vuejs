@@ -1,7 +1,7 @@
 <template>
   <section class="post-form">
     <h2 class="header">Create post</h2>
-    <textarea class="message-input" type="text" v-model="message" placeholder="What's up?"/>
+    <textarea class="message-input" @keydown.ctrl.enter="post()" type="text" v-model="message" placeholder="What's up?"/>
     <button class="submit-button" @click="post()">Create</button>
   </section>
 </template>

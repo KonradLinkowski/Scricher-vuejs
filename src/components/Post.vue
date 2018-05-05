@@ -10,7 +10,7 @@
       <a class="loadmore-btn" href="#" v-show="!noComments" @click.prevent="loadComments()">Load More</a>
       <!--<span v-show="noComments">No more comments</span>-->
       <Comment @comment-deleted="onCommentDeleted" v-for="(item, index) in list" :key='item._id' :object="item" :index="index" />
-      <textarea class="message" v-model="message" placeholder="Comment me!" />
+      <textarea class="message" @keydown.ctrl.enter="comment()" v-model="message" placeholder="Comment me!" />
       <button class="submit-btn" @click="comment()">Comment</button>
     </div>
   </article>
