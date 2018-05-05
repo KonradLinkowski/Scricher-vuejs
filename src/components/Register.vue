@@ -2,19 +2,19 @@
   <div class="card">
     <h2>Sign in!</h2>
     <form class="form-user" @submit.prevent="register()">
-      <label for="email">Email</label>
-      <input v-model="email" type="text" id="email" name="email" placeholder="user@exmaple.com" required pattern=".+@.+[.].+">
+      <label class="label" for="email">Email</label>
+      <input class="input" v-model="email" type="text" id="email" name="email" placeholder="user@exmaple.com" required pattern=".+@.+[.].+">
 
-      <label for="password">Password</label>
-      <input v-model="password" type="password" id="password" name="password" placeholder="password" required>
+      <label class="label" for="password">Password</label>
+      <input class="input" v-model="password" type="password" id="password" name="password" placeholder="password" required>
 
-      <label for="fname">First Name</label>
-      <input v-model="fname" type="text" id="fname" name="fname" placeholder="Firstname">
+      <label class="label" for="fname">First Name</label>
+      <input class="input" v-model="fname" type="text" id="fname" name="fname" placeholder="Firstname">
 
-      <label for="text">Last Name</label>
-      <input v-model="lname" type="text" id="lname" name="lname" placeholder="Lastname">
+      <label class="label" for="text">Last Name</label>
+      <input class="input" v-model="lname" type="text" id="lname" name="lname" placeholder="Lastname">
     
-      <input type="submit" value="Register">
+      <input class="submit-btn" type="submit" value="Register">
     </form>
   </div>
 </template>
@@ -41,5 +41,35 @@ export default {
   display: flex;
   flex-direction: column;
   width: 300px;
+}
+
+.label {
+  color: var(--red-color);
+}
+
+.input {
+  padding: 10px;
+  margin: 5px 0;
+  color: var(--yellow-color);
+  height: 2.3rem;
+  background-color: var(--background-color);
+  border: 1px solid var(--green-color);
+}
+
+.input::placeholder {
+  color: var(--green-color);
+}
+
+.submit-btn {
+  color: var(--yellow-color);
+  background: var(--background-color);
+  border: 1px solid var(--yellow-color);
+  padding: 5px;
+}
+
+.submit-btn:hover {
+  color: var(--background-color);
+  background: var(--yellow-color);
+  cursor: pointer;
 }
 </style>
