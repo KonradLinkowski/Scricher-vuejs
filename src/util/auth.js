@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from '../router'
 import decode from 'jwt-decode'
+import eventBus from './eventbus'
 
 const tokenKey = 'JWTtoken'
 const serverAdress = process.env.NODE_ENV == 'development'
